@@ -15,7 +15,7 @@ interface Image {
 // Інтерфейс для типізації пропсів компонента ImageGallery
 interface ImageGalleryProps {
   images: Image[]; // Масив зображень
-  onOpenModal: (url: string, alt: string) => void; // Функція відкриття модального вікна
+  onOpenModal: (url: string, alt: string | null) => void; // Функція відкриття модального вікна
 }
 
 // Типізований функціональний компонент ImageGallery
@@ -27,7 +27,7 @@ const ImageGallery: FC<ImageGalleryProps> = ({ images, onOpenModal }) => {
         <li
           className={s.image}
           key={img.id}
-          // onClick={() => onOpenModal(img.urls.regular, img.alt_description)}
+          onClick={() => onOpenModal(img.urls.regular, img.alt_description)}
         >
           <ImageCard img={img} />
         </li>

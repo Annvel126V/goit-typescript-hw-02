@@ -3,7 +3,7 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-// import ImageGallery from "./components/ImageGallery/ImageGallery";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import { fetchData } from "./servises.api";
@@ -82,9 +82,9 @@ const App: React.FC = () => {
     <>
       <Toaster />
       <SearchBar onSearch={handleSearch} />
-      {/* {images.length > 0 && (
+      {images.length > 0 && (
         <ImageGallery images={images} onOpenModal={handleOpenModal} />
-      )} */}
+      )}
       {isLoading && <Loader />}
       {error && <ErrorMessage />}
       {images.length > 0 && !isLoading && !error && (
