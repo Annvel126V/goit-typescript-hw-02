@@ -1,8 +1,8 @@
 import React, { useEffect, FC } from "react";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import s from "./ImageModal.module.css";
 
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 
 // Інтерфейс для типізації пропсів компонента ImageModal
 interface ImageModalProps {
@@ -14,22 +14,20 @@ interface ImageModalProps {
 const ImageModal: FC<ImageModalProps> = ({ isOpen, imageUrl, onClose }) => {
   // Використання хука useEffect для обробки події натискання клавіші Escape
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-
-    // Видалення обробника події при розмонтуванні компонента
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    // const handleKeyDown = (event) => {
+    //   if (event.key === "Escape") {
+    //     onClose();
+    //   }
+    // };
+    // window.addEventListener("keydown", handleKeyDown);
+    // // Видалення обробника події при розмонтуванні компонента
+    // return () => {
+    //   window.removeEventListener("keydown", handleKeyDown);
+    // };
   }, [onClose]);
   return (
     <>
-      <Modal
+      {/* <Modal
         className={s.modal}
         overlayClassName={s.overlay}
         isOpen={isOpen}
@@ -41,7 +39,7 @@ const ImageModal: FC<ImageModalProps> = ({ isOpen, imageUrl, onClose }) => {
           <img className={s.img} src={imageUrl} alt="close button" />
           <button className={s.closeBtn} onClick={onClose}></button>
         </div>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
