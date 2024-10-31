@@ -6,17 +6,9 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
-import { fetchData } from "./servises.api";
+import { fetchData, Image } from "./servises.api";
 
 // Інтерфейси для типу зображення
-interface Image {
-  id: string;
-  urls: {
-    small: string;
-    regular: string;
-  };
-  alt_description: string | null;
-}
 
 // Типи стану
 type ImagesState = Image[];

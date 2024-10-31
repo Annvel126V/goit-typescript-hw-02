@@ -1,16 +1,7 @@
 import React, { FC } from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import s from "./ImageGallery.module.css";
-
-// Інтерфейс для типізації об'єкта зображення
-interface Image {
-  id: string;
-  urls: {
-    small: string;
-    regular: string;
-  };
-  alt_description: string | null;
-}
+import { Image } from "../../servises.api";
 
 // Інтерфейс для типізації пропсів компонента ImageGallery
 interface ImageGalleryProps {
