@@ -4,7 +4,7 @@ import s from "./ImageCard.module.css";
 // Інтерфейс для типізації об'єкта зображення
 interface Image {
   urls: { small: string };
-  alt_description: string;
+  alt_description: string | null;
 }
 // Інтерфейс для типізації пропсів компонента
 interface ImageCardProps {

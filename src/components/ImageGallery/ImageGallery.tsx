@@ -9,7 +9,7 @@ interface Image {
     small: string;
     regular: string;
   };
-  alt_description: string;
+  alt_description: string | null;
 }
 
 // Інтерфейс для типізації пропсів компонента ImageGallery
@@ -27,7 +27,7 @@ const ImageGallery: FC<ImageGalleryProps> = ({ images, onOpenModal }) => {
         <li
           className={s.image}
           key={img.id}
-          onClick={() => onOpenModal(img.urls.regular, img.alt_description)}
+          // onClick={() => onOpenModal(img.urls.regular, img.alt_description)}
         >
           <ImageCard img={img} />
         </li>
