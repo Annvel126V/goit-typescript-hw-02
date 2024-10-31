@@ -15,12 +15,15 @@ interface Image {
     small: string;
     regular: string;
   };
-  alt_description: string;
+  alt_description: string | null;
 }
 
 // Типи стану
 type ImagesState = Image[];
-type SelectedImage = string | null;
+type SelectedImage = {
+  url: string;
+  alt: string;
+} | null;
 
 const App: React.FC = () => {
   const [images, setImages] = useState<ImagesState>([]);
@@ -68,9 +71,9 @@ const App: React.FC = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const handleOpenModal = (imageUrl: string) => {
+  const handleOpenModal = (imageUrl: string, altDescription: string) => {
     setIsModalOpen(true);
-    setSelectedImage(imageUrl);
+    setSelectedImage({ url: imageUrl, alt: altDescription });
   };
 
   const handleCloseModal = () => {
@@ -93,7 +96,7 @@ const App: React.FC = () => {
       {selectedImage && (
         <ImageModal
           isOpen={isModalOpen}
-          imageUrl={selectedImage}
+          imageUrl={selectedImage.url}
           onClose={handleCloseModal}
         />
       )}
