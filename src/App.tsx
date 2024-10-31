@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "./components/Loader/Loader";
@@ -8,23 +8,38 @@ import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import { fetchData } from "./servises.api";
 
-function App() {
-  const [images, setImages] = useState([]);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+// Інтерфейси для типу зображення
+interface Image {
+  id: string;
+  urls: {
+    small: string;
+    regular: string;
+  };
+  alt_description: string;
+}
 
+// Типи стану
+type ImagesState = Image[];
+type SelectedImage = string | null;
+
+const App: React.FC = () => {
+  const [images, setImages] = useState<ImagesState>([]);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<SelectedImage>(null);
+
+  // Функція для запиту зображень
   useEffect(() => {
     const fetchImages = async () => {
-      if (query === "") {
-        return;
-      }
+      if (query === "") return;
+
       try {
         setIsLoading(true);
         setError(false);
+
         const response = await fetchData(query, page);
 
         if (page === 1) {
@@ -32,7 +47,7 @@ function App() {
         } else {
           setImages((prevImages) => [...prevImages, ...response.results]);
         }
-      } catch (error) {
+      } catch (error: any) {
         toast.error(error.message);
         setError(true);
       } finally {
@@ -42,14 +57,18 @@ function App() {
 
     fetchImages();
   }, [query, page]);
-  const handleSearch = (newQuery) => {
+
+  // Функції обробників подій із типізацією
+  const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
     setPage(1);
   };
+
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
-  const handleOpenModal = (imageUrl) => {
+
+  const handleOpenModal = (imageUrl: string) => {
     setIsModalOpen(true);
     setSelectedImage(imageUrl);
   };
@@ -57,9 +76,6 @@ function App() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
-  };
-  const loadMore = () => {
-    handleLoadMore();
   };
 
   return (
@@ -72,9 +88,8 @@ function App() {
       {isLoading && <Loader />}
       {error && <ErrorMessage />}
       {images.length > 0 && !isLoading && !error && (
-        <LoadMoreBtn onClick={loadMore} />
+        <LoadMoreBtn onClick={handleLoadMore} />
       )}
-
       {selectedImage && (
         <ImageModal
           isOpen={isModalOpen}
@@ -84,6 +99,6 @@ function App() {
       )}
     </>
   );
-}
+};
 
 export default App;

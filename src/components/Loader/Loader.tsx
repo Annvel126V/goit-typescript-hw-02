@@ -1,6 +1,12 @@
+import React, { FC } from "react";
 import { MagnifyingGlass } from "react-loader-spinner";
 import s from "./Loader.module.css";
-const Loader = () => {
+
+// Інтерфейс для типізації пропсів компонента Loader
+interface LoaderProps {}
+
+// Типізований функціональний компонент Loader
+const Loader: FC<LoaderProps> = () => {
   return (
     <div className={s.loader}>
       <MagnifyingGlass
